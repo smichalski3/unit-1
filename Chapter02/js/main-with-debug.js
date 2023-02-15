@@ -1,6 +1,8 @@
 // initializes function
 function initialize(){
 	cities();
+	debugAjax();
+
 }
 
 // function to create cities 
@@ -114,3 +116,31 @@ function addEvents(){
 
 // calls the initialize function 
 document.addEventListener('DOMContentLoaded',initialize)
+
+
+
+
+
+
+
+function debugCallback(response){
+	// brings data and code to show up on the HTML page? 
+	document.querySelector("#myDiv").insertAdjacentHTML('beforeend', '<br>GeoJSON data: <br>' + JSON.stringify(response))
+};
+
+function debugAjax(){
+	// sets variable myData
+	var myData;
+	
+	// fetching the geojson data from the data folder 
+	fetch("data/map.geojson")
+		// after fetching, then return the data/function 
+		.then(function(response){            
+			return response.json();
+		})
+
+		// then call the debugCallback function 
+		.then(function(response){
+			debugCallback(response);
+		})
+};
